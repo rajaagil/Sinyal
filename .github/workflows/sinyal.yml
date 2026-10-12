@@ -1,0 +1,79 @@
+name: Sinyal Pagi
+
+on:
+  schedule:
+    - cron: "20 22 * * *"   # 06:20 WITA: pilih koin untuk beli 07:00
+    - cron: "5 11 * * *"    # 19:05 WITA: hasil jual 19:00
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "morning, evening, atau test (kirim pesan tes ke Discord)"
+        required: true
+        default: test
+        type: choice
+        options: [test, morning, evening]
+      dry_run:
+        description: "Hanya tampilkan di log, jangan kirim ke Discord"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write   # menyimpan state/ (pilihan pagi + rekam jejak) ke repo
+
+concurrency:
+  group: sinyal-pagi
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore candle data
+        uses: actions/cache/restore@v4
+        with:
+          path: data
+          key: candles-${{ github.run_id }}
+          restore-keys: candles-
+
+      - name: Pick mode
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "mode=${{ inputs.mode }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "20 22 * * *" ]; then
+            echo "mode=morning" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=evening" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          FEE_ROUND_TRIP: ${{ vars.FEE_ROUND_TRIP || '0.004' }}
+        run: |
+          ARGS="${{ steps.mode.outputs.mode }}"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python bot.py $ARGS
+
+      - name: Save candle data
+        if: always() && steps.mode.outputs.mode != 'test'
+        uses: actions/cache/save@v4
+        with:
+          path: data
+          key: candles-${{ github.run_id }}
+
+      - name: Save picks and track record
+        if: steps.mode.outputs.mode != 'test' && inputs.dry_run != true
+        run: |
+          git config user.name "sinyal-pagi-bot"
+          git config user.email "sinyal-pagi-bot@users.noreply.github.com"
+          git add state/
+          git diff --cached --quiet || git commit -m "state: ${{ steps.mode.outputs.mode }} $(date -u +%F)"
+          git push || (git pull --rebase && git push)
