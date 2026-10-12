@@ -119,6 +119,10 @@ def load_all(now_ms, offline=False):
                 print(f"  warning: {coin} has under 120 days of history; its own stats will be thin", file=sys.stderr)
         except Exception as e:  # one coin failing must not kill the report
             print(f"{coin}: FAILED {e}", file=sys.stderr)
+    days = {c: round(len(b) / 24) for c, b in data.items()}
+    missing = [c for c in COINS if c not in data]
+    annotate("Data", f"{len(data)}/{len(COINS)} koin. Hari per koin: " + ", ".join(f"{c} {d}" for c, d in days.items())
+             + (f". GAGAL: {', '.join(missing)}" if missing else ""))
     return data
 
 
@@ -358,9 +362,25 @@ def evening_message(picks_today, results, track):
 
 
 # ---------------- discord ----------------
+def annotate(title, text):
+    """Short note shown on the GitHub Actions run page (readable without opening the log)."""
+    if os.environ.get("GITHUB_ACTIONS"):
+        msg = text.replace("%", "%25").replace("\r", "").replace("\n", "%0A")
+        print(f"::notice title={title}::{msg}")
+
+
 def send(payload, dry):
     if dry:
         print(json.dumps(payload, indent=1, ensure_ascii=False))
+        lines = []
+        for e in payload.get("embeds", []):
+            if e.get("title"):
+                lines.append("# " + e["title"])
+            if e.get("description"):
+                lines.append(e["description"])
+            for f in e.get("fields", []):
+                lines.append(f"- {f['name']}: {f['value']}")
+        annotate("Pesan (dry run)", "\n".join(lines) or payload.get("content", ""))
         return
     url = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
     if not url.startswith("https://"):
