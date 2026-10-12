@@ -259,6 +259,10 @@ def analyze(data, now_ms):
             full, recent = c["baseline"][h], c["recent90"][h]
             if full["n"] >= 120 and recent["n"] >= 60 and full["avg"] > 0 and recent["avg"] > 0:
                 cands.append((coin, "Tren kebiasaan 1 tahun & 90 hari", full, None))
+        result.setdefault("debug", {})[h] = sorted(
+            [f"{coin} {name}: avg {pct(st['avg'])} win {pct(st['win_rate'], False)} n {st['n']}"
+             + (f" acak {pct(base['win_rate'], False)}" if base else "") for coin, name, st, base in cands],
+            key=lambda x: -float(x.split("avg ")[1].split("%")[0]))[:8]
         picks = []
         for coin, name, st, base in cands:
             better_than_random = base is None or st["win_rate"] > base["win_rate"]
@@ -408,6 +412,9 @@ def main():
     if a.mode == "morning":
         res = analyze(data, now_ms)
         send(morning_message(res), a.dry_run)
+        if a.dry_run:
+            annotate("Kandidat sebelum filter", "\n".join(f"[{h} jam] " + (" | ".join(v) or "tidak ada setup aktif")
+                                                           for h, v in res.get("debug", {}).items()))
         trade_day = wita_date(res["decision_end"] + HOUR).strftime("%Y-%m-%d")
         picks = load_state("picks.json", {})
         picks[trade_day] = {str(h): [{"coin": p["coin"], "signal_name": p["signal_name"],
