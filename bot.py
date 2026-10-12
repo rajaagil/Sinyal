@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Sinyal Pagi: crypto picks for a fixed 12-hour window, sent to Discord.
+"""Sinyal Pagi: crypto picks for three holding periods, sent to Discord.
 
-Window   : buy 07:00 WITA, sell 19:00 WITA  (= 23:00 UTC -> 11:00 UTC)
+Buy 07:00 WITA (23:00 UTC), sell after 12 hours (19:00 WITA), 1 day or 2 days.
 Decision : uses data up to 06:00 WITA (22:00 UTC), so the message is ready before 07:00
 Data     : hourly candles from the public Crypto.com Exchange API (no key needed)
 
   python bot.py morning            # pick coins, send to Discord
-  python bot.py evening            # 19:00 result of this morning's picks
+  python bot.py evening            # 19:00 results of every pick whose holding period ended
   python bot.py morning --dry-run  # print the message instead of sending
   python bot.py test               # send a test message to the webhook
 
-The "perkiraan" (projection) is the historical average 07:00->19:00 return of the
-same setup after fees. It is a statistic of the past, not a promise.
+The projection per coin is the historical average return of the same setup over the
+same holding period, after fees.
 """
 import argparse
 import json
@@ -39,7 +39,11 @@ LOOKBACK_DAYS = 365
 FEE_ROUND_TRIP = float(os.environ.get("FEE_ROUND_TRIP", "0.004"))  # 0.4% buy+sell+spread
 DECISION_HOUR_UTC = 22     # 06:00 WITA: last data used for the decision
 ENTRY_HOUR_UTC = 23        # 07:00 WITA
-HOLD_HOURS = 12            # sell 19:00 WITA
+HORIZONS = {               # holding period in hours -> label
+    12: "12 jam · jual 19:00 WITA",
+    24: "1 hari · jual besok 07:00 WITA",
+    48: "2 hari · jual lusa 07:00 WITA",
+}
 MIN_SAMPLES_COIN = 20      # use a coin's own history once a setup happened this often
 MIN_SAMPLES_POOLED = 30
 MAX_PICKS = 3
@@ -143,14 +147,14 @@ def anchored_days(hourly):
     return days
 
 
-def window_result(by_ts, decision_end):
-    """Return (entry, exit, worst dip) for buying at decision_end+1h and selling 12h later."""
-    entry_bar = by_ts.get(decision_end)  # 22:00-23:00 UTC bar, closes at 07:00 WITA
-    exit_bar = by_ts.get(decision_end + HOLD_HOURS * HOUR)  # 10:00-11:00 UTC bar, closes 19:00 WITA
+def window_result(by_ts, decision_end, hours):
+    """Buy at 07:00 WITA (decision_end + 1h), sell `hours` later. Returns (entry, exit, worst dip)."""
+    entry_bar = by_ts.get(decision_end)                 # bar closing 07:00 WITA
+    exit_bar = by_ts.get(decision_end + hours * HOUR)   # bar closing 07:00 + hours
     if not entry_bar or not exit_bar:
         return None
     entry, exit_ = entry_bar[4], exit_bar[4]
-    lows = [by_ts[t][3] for t in range(decision_end + HOUR, decision_end + (HOLD_HOURS + 1) * HOUR, HOUR) if t in by_ts]
+    lows = [by_ts[t][3] for t in range(decision_end + HOUR, decision_end + (hours + 1) * HOUR, HOUR) if t in by_ts]
     dip = min(lows) / entry - 1 if lows else None
     return entry, exit_, dip
 
@@ -183,8 +187,8 @@ def summarize(rets, dips):
 
 def analyze(data, now_ms):
     decision_end = (now_ms - DECISION_HOUR_UTC * HOUR) // DAY * DAY + DECISION_HOUR_UTC * HOUR
-    pooled = {k: ([], []) for k in SIGNALS}
-    base_pooled = ([], [])
+    H = list(HORIZONS)
+    pooled = {h: {k: ([], []) for k in SIGNALS} for h in H}
     coins = {}
     for coin, hourly in data.items():
         if len(hourly) < 24 * 40:
@@ -196,80 +200,75 @@ def analyze(data, now_ms):
             continue
         d = eng.indicators(days)
         last = len(days) - 1
-        hist = {k: ([], []) for k in SIGNALS}
-        base = ([], [])
+        hist = {h: {k: ([], []) for k in SIGNALS} for h in H}
+        base = {h: ([], []) for h in H}
         for i in range(eng.WARMUP, last):
-            w = window_result(by_ts, days[i][0])
-            if not w:
-                continue
-            ret = w[1] / w[0] - 1 - FEE_ROUND_TRIP
-            base[0].append(ret)
-            base[1].append(w[2])
-            for k, s in SIGNALS.items():
+            hits = []
+            for k, sig in SIGNALS.items():
                 try:
-                    hit = s["fn"](d, i)
+                    if sig["fn"](d, i):
+                        hits.append(k)
                 except (TypeError, IndexError):
-                    hit = False
-                if hit:
-                    hist[k][0].append(ret)
-                    hist[k][1].append(w[2])
-        for k in SIGNALS:
-            pooled[k][0].extend(hist[k][0])
-            pooled[k][1].extend(hist[k][1])
-        base_pooled[0].extend(base[0])
-        base_pooled[1].extend(base[1])
+                    pass
+            for h in H:
+                w = window_result(by_ts, days[i][0], h)
+                if not w:
+                    continue
+                ret = w[1] / w[0] - 1 - FEE_ROUND_TRIP
+                base[h][0].append(ret)
+                base[h][1].append(w[2])
+                for k in hits:
+                    hist[h][k][0].append(ret)
+                    hist[h][k][1].append(w[2])
+        for h in H:
+            for k in SIGNALS:
+                pooled[h][k][0].extend(hist[h][k][0])
+                pooled[h][k][1].extend(hist[h][k][1])
         active = []
-        for k, s in SIGNALS.items():
+        for k, sig in SIGNALS.items():
             try:
-                if s["fn"](d, last):
+                if sig["fn"](d, last):
                     active.append(k)
             except (TypeError, IndexError):
                 pass
         coins[coin] = {
             "price": hourly[-1][4],
             "chg_24h": days[-1][4] / days[-2][4] - 1,
-            "rsi": d["rsi"][last],
             "active": active,
-            "hist": {k: summarize(*hist[k]) for k in active},
-            "baseline": summarize(*base),
-            "recent90": summarize(base[0][-90:], base[1][-90:]),
-            "days": len(days),
+            "hist": {h: {k: summarize(*hist[h][k]) for k in active} for h in H},
+            "baseline": {h: summarize(*base[h]) for h in H},
+            "recent90": {h: summarize(base[h][0][-90:], base[h][1][-90:]) for h in H},
         }
 
-    pooled_stats = {k: summarize(*pooled[k]) for k in SIGNALS}
-    base_stats = summarize(*base_pooled)
-    picks = []
-    # "Kebiasaan jam": a coin whose own 07->19 window has been positive over the full year
-    # AND over the last 90 days. Judged against the all-coin baseline like any other setup.
-    for coin, c in coins.items():
-        full, recent = c["baseline"], c["recent90"]
-        if full["n"] >= 120 and recent["n"] >= 60 and full["avg"] > 0 and recent["avg"] > 0:
-            edge = full["win_rate"] - base_stats["win_rate"]
-            verdict = "menarik" if edge >= 0.05 and full["win_rate_low"] > 0.5 else "netral"
-            picks.append({"coin": coin, "signal": "session", "signal_name": "Kebiasaan jam 07–19 (1 tahun & 90 hari positif)",
-                          "source": "coin", "stats": full, "baseline_win": base_stats["win_rate"], "edge": edge,
-                          "verdict": verdict, "score": full["win_rate_low"] + max(min(full["avg"], 0.03), -0.03)})
-    for coin, c in coins.items():
-        for k in c["active"]:
-            own = c["hist"][k]
-            if own["n"] >= MIN_SAMPLES_COIN:
-                st, base, src = own, c["baseline"], "coin"
-            elif pooled_stats[k]["n"] >= MIN_SAMPLES_POOLED:
-                st, base, src = pooled_stats[k], base_stats, "pooled"
-            else:
-                continue
-            edge = st["win_rate"] - base["win_rate"]
-            verdict = ("menarik" if st["avg"] > 0 and edge >= 0.05 and st["win_rate_low"] > 0.5
-                       else "lemah" if st["avg"] <= 0 or edge <= 0 else "netral")
-            picks.append({"coin": coin, "signal": k, "signal_name": SIGNALS[k]["name"], "source": src,
-                          "stats": st, "baseline_win": base["win_rate"], "edge": edge, "verdict": verdict,
-                          "score": st["win_rate_low"] + max(min(st["avg"], 0.03), -0.03)})
-    best = {}
-    for p in sorted(picks, key=lambda p: p["score"], reverse=True):
-        best.setdefault(p["coin"], p)
-    ranked = sorted(best.values(), key=lambda p: p["score"], reverse=True)
-    return {"decision_end": decision_end, "coins": coins, "picks": ranked,
-            "pooled": pooled_stats, "baseline": base_stats}
+    pooled_stats = {h: {k: summarize(*pooled[h][k]) for k in SIGNALS} for h in H}
+    result = {"decision_end": decision_end, "coins": coins, "horizons": {}}
+    for h in H:
+        cands = []
+        for coin, c in coins.items():
+            # setups active today, judged on this holding period
+            for k in c["active"]:
+                own = c["hist"][h][k]
+                if own["n"] >= MIN_SAMPLES_COIN:
+                    st = own
+                elif pooled_stats[h][k]["n"] >= MIN_SAMPLES_POOLED:
+                    st = pooled_stats[h][k]
+                else:
+                    continue
+                cands.append((coin, SIGNALS[k]["name"], st, c["baseline"][h]))
+            # coin's own habit over this holding period: positive over 1 year AND last 90 days
+            full, recent = c["baseline"][h], c["recent90"][h]
+            if full["n"] >= 120 and recent["n"] >= 60 and full["avg"] > 0 and recent["avg"] > 0:
+                cands.append((coin, "Tren kebiasaan 1 tahun & 90 hari", full, None))
+        picks = []
+        for coin, name, st, base in cands:
+            better_than_random = base is None or st["win_rate"] > base["win_rate"]
+            if st["avg"] >= 0.001 and st["win_rate"] >= 0.5 and better_than_random:
+                picks.append({"coin": coin, "signal_name": name, "stats": st})
+        best = {}
+        for p in sorted(picks, key=lambda p: p["stats"]["avg"], reverse=True):
+            best.setdefault(p["coin"], p)
+        result["horizons"][h] = sorted(best.values(), key=lambda p: p["stats"]["avg"], reverse=True)[:MAX_PICKS]
+    return result
 
 
 # ---------------- formatting ----------------
@@ -295,70 +294,45 @@ HARI = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
 BULAN = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"]
 
 
+def tgl_pendek(iso_day):
+    d = datetime.fromisoformat(iso_day)
+    return f"{d.day} {BULAN[d.month - 1]}"
+
+
 def tanggal(dt):
     return f"{HARI[dt.weekday()]} {dt.day} {BULAN[dt.month - 1]}"
 
 
-def morning_message(res, now_ms):
-    trade_day = wita_date(res["decision_end"] + HOUR)  # 07:00 WITA of the trading day
-    b = res["baseline"]
-    good = [p for p in res["picks"] if p["verdict"] == "menarik"][:MAX_PICKS]
-    title = f"Sinyal {tanggal(trade_day)}: beli 07:00, jual 19:00 WITA"
-    embeds = []
-    if good:
-        lines = [f"**{len(good)} koin** yang historisnya lebih baik dari beli acak di jam yang sama."]
-        color = 0x1F7A4D
-    else:
-        lines = ["**Hari ini skip.** Tidak ada setup yang dulu lebih sering untung dari beli acak di jam 07:00–19:00."]
-        color = 0x9A6400
-    lines.append(f"Patokan beli acak 07→19: untung {pct(b['win_rate'], False)} dari {b['n']:} hari-koin, "
-                 f"rata-rata {pct(b['avg'])} setelah biaya {FEE_ROUND_TRIP * 100:.1f}%.")
-    embeds.append({"title": title, "description": "\n".join(lines), "color": color})
-    for p in good:
-        s, c = p["stats"], res["coins"][p["coin"]]
-        src = f"riwayat {p['coin']}" if p["source"] == "coin" else "gabungan 23 koin"
-        embeds.append({
-            "title": f"{p['coin']}  ·  perkiraan {pct(s['avg'])}",
-            "color": 0x1D6A86,
-            "description": (f"Setup: **{p['signal_name']}**\n"
-                            f"Harga acuan sekarang: {usd(c['price'])} · 24 jam {pct(c['chg_24h'])}"),
-            "fields": [
-                {"name": "Untung di jam main", "value": f"{pct(s['win_rate'], False)} dari {s['n']}× (acak {pct(p['baseline_win'], False)})", "inline": True},
-                {"name": "Rentang umum", "value": f"{pct(s['p25'])} s/d {pct(s['p75'])}", "inline": True},
-                {"name": "Terburuk", "value": f"{pct(s['worst'])}", "inline": True},
-                {"name": "Rata-rata turun terdalam", "value": f"{pct(s['avg_dip'])} sebelum 19:00", "inline": True},
-                {"name": "Sumber statistik", "value": src, "inline": True},
-            ],
-        })
-    others = [p for p in res["picks"] if p["verdict"] != "menarik"][:6]
-    if others:
-        embeds.append({"description": "Muncul tapi historisnya lemah, lebih baik dilewati: " +
-                       ", ".join(f"{p['coin']} ({p['signal_name']}, {pct(p['stats']['avg'])})" for p in others),
-                       "color": 0x5A6878})
-    embeds[-1]["footer"] = {"text": "Statistik masa lalu, bukan janji dan bukan saran keuangan. Pasang batas rugi; ukuran posisi kecil."}
-    return {"username": "Sinyal Pagi", "embeds": embeds[:10]}, good
+def morning_message(res):
+    trade_day = wita_date(res["decision_end"] + HOUR)
+    embeds = [{"title": f"Sinyal {tanggal(trade_day)} · beli 07:00 WITA", "color": 0x142231}]
+    colors = {12: 0x1D6A86, 24: 0x1F7A4D, 48: 0x9A6400}
+    for h, label in HORIZONS.items():
+        picks = res["horizons"][h]
+        if picks:
+            lines = []
+            for i, p in enumerate(picks, 1):
+                s = p["stats"]
+                lines.append(f"**{i}. {p['coin']}**  ·  **{pct(s['avg'])}**  ·  peluang naik {pct(s['win_rate'], False)}"
+                             f"  ·  terburuk {pct(s['worst'])}\n{p['signal_name']}")
+            desc = "\n\n".join(lines)
+        else:
+            desc = "Tidak ada koin yang layak."
+        embeds.append({"title": label, "description": desc, "color": colors[h]})
+    return {"username": "Sinyal Pagi", "embeds": embeds}
 
 
-def evening_message(picks_today, results, track):
-    lines = []
-    for p, r in zip(picks_today, results):
-        if r is None:
-            lines.append(f"**{p['coin']}**: data jam 19:00 belum tersedia")
+def evening_message(rows):
+    by_h = {}
+    for r in rows:
+        by_h.setdefault(r["hours"], []).append(r)
+    embeds = [{"title": "Hasil sinyal", "color": 0x142231}]
+    for h, label in HORIZONS.items():
+        if h not in by_h:
             continue
-        lines.append(f"**{p['coin']}**: {pct(r['ret'])} (07:00 {usd(r['entry'])} → 19:00 {usd(r['exit'])}), "
-                     f"perkiraan pagi {pct(p['projection'])}")
-    done = [t for t in track if t.get("ret") is not None]
-    tr = ""
-    if done:
-        wins = sum(t["ret"] > 0 for t in done)
-        avg = sum(t["ret"] for t in done) / len(done)
-        tr = f"\nRekam jejak: {wins}/{len(done)} untung ({wins / len(done) * 100:.0f}%), rata-rata {pct(avg)} per sinyal setelah biaya."
-    return {"username": "Sinyal Pagi", "embeds": [{
-        "title": "19:00 WITA: waktunya jual",
-        "description": "\n".join(lines) + tr,
-        "color": 0x1D6A86,
-        "footer": {"text": "Hasil dihitung dari harga Crypto.com, sudah dipotong biaya asumsi. Harga Pluang bisa sedikit beda."},
-    }]}
+        lines = [f"**{r['coin']}**  ·  **{pct(r['ret'])}**  (perkiraan {pct(r['projection'])}, beli {tgl_pendek(r['date'])})" for r in by_h[h]]
+        embeds.append({"title": label.split(" · ")[0], "description": "\n".join(lines), "color": 0x1D6A86})
+    return {"username": "Sinyal Pagi", "embeds": embeds}
 
 
 # ---------------- discord ----------------
@@ -433,38 +407,45 @@ def main():
 
     if a.mode == "morning":
         res = analyze(data, now_ms)
-        payload, good = morning_message(res, now_ms)
-        send(payload, a.dry_run)
+        send(morning_message(res), a.dry_run)
         trade_day = wita_date(res["decision_end"] + HOUR).strftime("%Y-%m-%d")
         picks = load_state("picks.json", {})
-        picks[trade_day] = [{"coin": p["coin"], "signal_name": p["signal_name"], "projection": p["stats"]["avg"],
-                             "win_rate": p["stats"]["win_rate"], "n": p["stats"]["n"],
-                             "decision_end": res["decision_end"]} for p in good]
+        picks[trade_day] = {str(h): [{"coin": p["coin"], "signal_name": p["signal_name"],
+                                      "projection": p["stats"]["avg"], "decision_end": res["decision_end"]}
+                                     for p in ps] for h, ps in res["horizons"].items()}
         picks = dict(sorted(picks.items())[-60:])
         if not a.dry_run:
             save_state("picks.json", picks)
-        print(f"{len(res['coins'])} coins analysed, {len(res['picks'])} active setups, {len(good)} picks")
+        print(f"{len(res['coins'])} coins analysed; picks per horizon: "
+              + ", ".join(f"{h}h {len(ps)}" for h, ps in res["horizons"].items()))
 
-    else:  # evening
-        trade_day = wita_date(now_ms).strftime("%Y-%m-%d")
-        todays = load_state("picks.json", {}).get(trade_day, [])
-        if not todays:
-            print("No picks this morning; nothing to send.")
-            return
-        results = []
-        for p in todays:
-            by_ts = {b[0]: b for b in data.get(p["coin"], [])}
-            w = window_result(by_ts, p["decision_end"])
-            results.append(None if not w else {"entry": w[0], "exit": w[1], "ret": w[1] / w[0] - 1 - FEE_ROUND_TRIP})
+    else:  # evening: report every pick whose holding period has ended and was not reported yet
+        picks = load_state("picks.json", {})
         track = load_state("track.json", [])
-        known = {(t["date"], t["coin"]) for t in track}
-        for p, r in zip(todays, results):
-            if r and (trade_day, p["coin"]) not in known:
-                track.append({"date": trade_day, "coin": p["coin"], "signal_name": p["signal_name"],
-                              "projection": p["projection"], "ret": r["ret"]})
-        send(evening_message(todays, results, track), a.dry_run)
+        done = {(t["date"], t.get("hours", 12), t["coin"]) for t in track}
+        rows = []
+        for day, per_h in picks.items():
+            if isinstance(per_h, list):  # old format (12h only)
+                per_h = {"12": per_h}
+            for hs, ps in per_h.items():
+                h = int(hs)
+                for p in ps:
+                    if (day, h, p["coin"]) in done or p["decision_end"] + (h + 1) * HOUR > now_ms:
+                        continue
+                    by_ts = {b[0]: b for b in data.get(p["coin"], [])}
+                    w = window_result(by_ts, p["decision_end"], h)
+                    if not w:
+                        continue
+                    r = {"date": day, "hours": h, "coin": p["coin"], "signal_name": p["signal_name"],
+                         "projection": p["projection"], "ret": w[1] / w[0] - 1 - FEE_ROUND_TRIP}
+                    rows.append(r)
+                    track.append(r)
+        if not rows:
+            print("Nothing matured; no message.")
+            return
+        send(evening_message(rows), a.dry_run)
         if not a.dry_run:
-            save_state("track.json", track)
+            save_state("track.json", track[-1000:])
 
 
 if __name__ == "__main__":

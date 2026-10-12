@@ -2,8 +2,13 @@
 
 Bot GitHub Actions yang setiap hari mengirim ke Discord:
 
-- **06:20–07:00 WITA**: koin yang setup-nya dulu paling sering untung untuk **beli 07:00, jual 19:00 WITA**, lengkap dengan perkiraan % (rata-rata historis setelah biaya), peluang untung, rentang umum, dan kerugian terburuk. Kalau tidak ada yang layak, pesannya bilang **skip**.
-- **19:05 WITA**: hasil nyata koin pagi tadi dan rekam jejak kumulatif.
+- **06:20–07:00 WITA**: maksimal 3 koin per kategori, semua beli 07:00 WITA:
+  - **12 jam**: jual 19:00 WITA
+  - **1 hari**: jual besok 07:00 WITA
+  - **2 hari**: jual lusa 07:00 WITA
+
+  Tiap koin diberi perkiraan untung % (rata-rata historis setup yang sama di periode itu, setelah biaya), peluang naik, dan kerugian terburuk. Urutan berdasarkan perkiraan untung terbesar.
+- **19:05 WITA**: hasil nyata semua sinyal yang periodenya sudah selesai.
 
 Data: candle per jam 365 hari terakhir dari API publik Crypto.com Exchange (tanpa API key), 23 koin.
 
