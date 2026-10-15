@@ -35,5 +35,23 @@
     "decision_end": 1791928800000
    }
   ]
+ },
+ "2026-10-15": {
+  "12": [],
+  "24": [],
+  "48": [
+   {
+    "coin": "NEAR",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.00990815585287078,
+    "decision_end": 1792015200000
+   },
+   {
+    "coin": "PUMP",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0048574936518155955,
+    "decision_end": 1792015200000
+   }
+  ]
  }
 }
