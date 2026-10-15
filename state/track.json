@@ -1,1 +1,26 @@
-[]
+[
+ {
+  "date": "2026-10-13",
+  "hours": 48,
+  "coin": "QNT",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.02615323580671862,
+  "ret": -0.1036273346711063
+ },
+ {
+  "date": "2026-10-13",
+  "hours": 48,
+  "coin": "NEAR",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.010769492679784371,
+  "ret": -0.03832670645429037
+ },
+ {
+  "date": "2026-10-13",
+  "hours": 48,
+  "coin": "SHIB",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.006418244300058109,
+  "ret": -0.030240183872821232
+ }
+]
