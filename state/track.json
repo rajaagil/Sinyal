@@ -22,5 +22,13 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.006418244300058109,
   "ret": -0.030240183872821232
+ },
+ {
+  "date": "2026-10-14",
+  "hours": 48,
+  "coin": "QNT",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.02615323580671862,
+  "ret": -0.051987724070586605
  }
 ]
