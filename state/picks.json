@@ -65,5 +65,17 @@
     "decision_end": 1792101600000
    }
   ]
+ },
+ "2026-10-17": {
+  "12": [],
+  "24": [],
+  "48": [
+   {
+    "coin": "NEAR",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.010374386870858222,
+    "decision_end": 1792188000000
+   }
+  ]
  }
 }
