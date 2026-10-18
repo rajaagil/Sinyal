@@ -77,5 +77,24 @@
     "decision_end": 1792188000000
    }
   ]
+ },
+ "2026-10-18": {
+  "12": [],
+  "24": [
+   {
+    "coin": "ONDO",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0014716400852483674,
+    "decision_end": 1792274400000
+   }
+  ],
+  "48": [
+   {
+    "coin": "PUMP",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0031006440846432525,
+    "decision_end": 1792274400000
+   }
+  ]
  }
 }
