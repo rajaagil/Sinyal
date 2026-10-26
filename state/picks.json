@@ -177,5 +177,17 @@
     "decision_end": 1792879200000
    }
   ]
+ },
+ "2026-10-26": {
+  "12": [],
+  "24": [],
+  "48": [
+   {
+    "coin": "QNT",
+    "signal_name": "Momentum 24 jam + volume",
+    "projection": 0.11919625820099841,
+    "decision_end": 1792965600000
+   }
+  ]
  }
 }
