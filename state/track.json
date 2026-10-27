@@ -118,5 +118,21 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.005425384927153263,
   "ret": -0.020236077912831215
+ },
+ {
+  "date": "2026-10-25",
+  "hours": 48,
+  "coin": "NEAR",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.007559599090165933,
+  "ret": -0.006326673974809235
+ },
+ {
+  "date": "2026-10-25",
+  "hours": 48,
+  "coin": "PUMP",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.0025812530439951915,
+  "ret": -0.015462321411896515
  }
 ]
