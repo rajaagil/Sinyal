@@ -201,5 +201,36 @@
     "decision_end": 1793052000000
    }
   ]
+ },
+ "2026-10-28": {
+  "12": [],
+  "24": [
+   {
+    "coin": "BCH",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010582569951898898,
+    "decision_end": 1793138400000
+   },
+   {
+    "coin": "ENA",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010582569951898898,
+    "decision_end": 1793138400000
+   }
+  ],
+  "48": [
+   {
+    "coin": "BCH",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.018306589397618443,
+    "decision_end": 1793138400000
+   },
+   {
+    "coin": "ENA",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.018306589397618443,
+    "decision_end": 1793138400000
+   }
+  ]
  }
 }
