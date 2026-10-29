@@ -232,5 +232,48 @@
     "decision_end": 1793138400000
    }
   ]
+ },
+ "2026-10-29": {
+  "12": [],
+  "24": [
+   {
+    "coin": "XRP",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010252242810927561,
+    "decision_end": 1793224800000
+   },
+   {
+    "coin": "DOGE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010252242810927561,
+    "decision_end": 1793224800000
+   },
+   {
+    "coin": "HYPE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010252242810927561,
+    "decision_end": 1793224800000
+   }
+  ],
+  "48": [
+   {
+    "coin": "XRP",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.018307644782301204,
+    "decision_end": 1793224800000
+   },
+   {
+    "coin": "DOGE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.018307644782301204,
+    "decision_end": 1793224800000
+   },
+   {
+    "coin": "HYPE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.018307644782301204,
+    "decision_end": 1793224800000
+   }
+  ]
  }
 }
