@@ -166,5 +166,45 @@
   "signal_name": "MACD bullish cross",
   "projection": 0.010582569951898898,
   "ret": -0.004334880160742457
+ },
+ {
+  "date": "2026-10-28",
+  "hours": 48,
+  "coin": "BCH",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.018306589397618443,
+  "ret": -0.05223030054083655
+ },
+ {
+  "date": "2026-10-28",
+  "hours": 48,
+  "coin": "ENA",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.018306589397618443,
+  "ret": -0.1618242357556331
+ },
+ {
+  "date": "2026-10-29",
+  "hours": 24,
+  "coin": "XRP",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.010252242810927561,
+  "ret": -0.06531826741996227
+ },
+ {
+  "date": "2026-10-29",
+  "hours": 24,
+  "coin": "DOGE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.010252242810927561,
+  "ret": -0.0499036099320086
+ },
+ {
+  "date": "2026-10-29",
+  "hours": 24,
+  "coin": "HYPE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.010252242810927561,
+  "ret": 0.12653141050967975
  }
 ]
