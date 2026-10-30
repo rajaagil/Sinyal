@@ -275,5 +275,42 @@
     "decision_end": 1793224800000
    }
   ]
+ },
+ "2026-10-30": {
+  "12": [],
+  "24": [
+   {
+    "coin": "HYPE",
+    "signal_name": "EMA 9/21 cross",
+    "projection": 0.009226231697674865,
+    "decision_end": 1793311200000
+   },
+   {
+    "coin": "ONDO",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0015326056605489168,
+    "decision_end": 1793311200000
+   }
+  ],
+  "48": [
+   {
+    "coin": "CRO",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.01602716418701206,
+    "decision_end": 1793311200000
+   },
+   {
+    "coin": "NEAR",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.00893483928056661,
+    "decision_end": 1793311200000
+   },
+   {
+    "coin": "SHIB",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.005630263096125642,
+    "decision_end": 1793311200000
+   }
+  ]
  }
 }
