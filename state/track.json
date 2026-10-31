@@ -206,5 +206,45 @@
   "signal_name": "MACD bullish cross",
   "projection": 0.010252242810927561,
   "ret": 0.12653141050967975
+ },
+ {
+  "date": "2026-10-29",
+  "hours": 48,
+  "coin": "XRP",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.018307644782301204,
+  "ret": -0.060346516007532935
+ },
+ {
+  "date": "2026-10-29",
+  "hours": 48,
+  "coin": "DOGE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.018307644782301204,
+  "ret": -0.05692813943878905
+ },
+ {
+  "date": "2026-10-29",
+  "hours": 48,
+  "coin": "HYPE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.018307644782301204,
+  "ret": 0.0985409917028841
+ },
+ {
+  "date": "2026-10-30",
+  "hours": 24,
+  "coin": "HYPE",
+  "signal_name": "EMA 9/21 cross",
+  "projection": 0.009226231697674865,
+  "ret": -0.028758638766327334
+ },
+ {
+  "date": "2026-10-30",
+  "hours": 24,
+  "coin": "ONDO",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.0015326056605489168,
+  "ret": 0.0748990825688074
  }
 ]
