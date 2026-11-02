@@ -329,5 +329,36 @@
    }
   ],
   "48": []
+ },
+ "2026-11-02": {
+  "12": [],
+  "24": [
+   {
+    "coin": "XLM",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009592118392711284,
+    "decision_end": 1793570400000
+   },
+   {
+    "coin": "UNI",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009592118392711284,
+    "decision_end": 1793570400000
+   }
+  ],
+  "48": [
+   {
+    "coin": "XLM",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015495815766763704,
+    "decision_end": 1793570400000
+   },
+   {
+    "coin": "UNI",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015495815766763704,
+    "decision_end": 1793570400000
+   }
+  ]
  }
 }
