@@ -270,5 +270,13 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.005630263096125642,
   "ret": -0.004
+ },
+ {
+  "date": "2026-11-01",
+  "hours": 24,
+  "coin": "AAVE",
+  "signal_name": "Momentum 24 jam + volume",
+  "projection": 0.008545544650070467,
+  "ret": -0.00931831807261185
  }
 ]
