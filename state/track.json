@@ -278,5 +278,21 @@
   "signal_name": "Momentum 24 jam + volume",
   "projection": 0.008545544650070467,
   "ret": -0.00931831807261185
+ },
+ {
+  "date": "2026-11-02",
+  "hours": 24,
+  "coin": "XLM",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.009592118392711284,
+  "ret": -0.02583249821045108
+ },
+ {
+  "date": "2026-11-02",
+  "hours": 24,
+  "coin": "UNI",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.009592118392711284,
+  "ret": -0.014819489040904684
  }
 ]
