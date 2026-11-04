@@ -294,5 +294,21 @@
   "signal_name": "MACD bullish cross",
   "projection": 0.009592118392711284,
   "ret": -0.014819489040904684
+ },
+ {
+  "date": "2026-11-02",
+  "hours": 48,
+  "coin": "XLM",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.015495815766763704,
+  "ret": -0.03078358387019819
+ },
+ {
+  "date": "2026-11-02",
+  "hours": 48,
+  "coin": "UNI",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.015495815766763704,
+  "ret": 0.003343291916794614
  }
 ]
