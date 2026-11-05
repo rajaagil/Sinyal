@@ -310,5 +310,21 @@
   "signal_name": "MACD bullish cross",
   "projection": 0.015495815766763704,
   "ret": 0.003343291916794614
+ },
+ {
+  "date": "2026-11-03",
+  "hours": 48,
+  "coin": "NEAR",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.01014242454385044,
+  "ret": 0.047251582237606726
+ },
+ {
+  "date": "2026-11-03",
+  "hours": 48,
+  "coin": "PUMP",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.0039958057100571865,
+  "ret": 0.08015055335669441
  }
 ]
