@@ -383,5 +383,48 @@
   "12": [],
   "24": [],
   "48": []
+ },
+ "2026-11-05": {
+  "12": [],
+  "24": [
+   {
+    "coin": "ETH",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010321260860546487,
+    "decision_end": 1793829600000
+   },
+   {
+    "coin": "XRP",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010321260860546487,
+    "decision_end": 1793829600000
+   },
+   {
+    "coin": "DOGE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010321260860546487,
+    "decision_end": 1793829600000
+   }
+  ],
+  "48": [
+   {
+    "coin": "ETH",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.016607321860075148,
+    "decision_end": 1793829600000
+   },
+   {
+    "coin": "XRP",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.016607321860075148,
+    "decision_end": 1793829600000
+   },
+   {
+    "coin": "DOGE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.016607321860075148,
+    "decision_end": 1793829600000
+   }
+  ]
  }
 }
