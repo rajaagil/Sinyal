@@ -326,5 +326,29 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.0039958057100571865,
   "ret": 0.08015055335669441
+ },
+ {
+  "date": "2026-11-05",
+  "hours": 24,
+  "coin": "ETH",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.010321260860546487,
+  "ret": -0.08854762627962531
+ },
+ {
+  "date": "2026-11-05",
+  "hours": 24,
+  "coin": "XRP",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.010321260860546487,
+  "ret": -0.07623957936447456
+ },
+ {
+  "date": "2026-11-05",
+  "hours": 24,
+  "coin": "DOGE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.010321260860546487,
+  "ret": -0.08181488980307694
  }
 ]
