@@ -468,5 +468,36 @@
   "12": [],
   "24": [],
   "48": []
+ },
+ "2026-11-08": {
+  "12": [],
+  "24": [
+   {
+    "coin": "AAVE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.00891708238780274,
+    "decision_end": 1794088800000
+   },
+   {
+    "coin": "BCH",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0017775219199336412,
+    "decision_end": 1794088800000
+   }
+  ],
+  "48": [
+   {
+    "coin": "AAVE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015319138190753869,
+    "decision_end": 1794088800000
+   },
+   {
+    "coin": "PUMP",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.004420208734701371,
+    "decision_end": 1794088800000
+   }
+  ]
  }
 }
