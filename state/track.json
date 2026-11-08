@@ -390,5 +390,29 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.0019818438878941827,
   "ret": 0.01639276385798572
+ },
+ {
+  "date": "2026-11-06",
+  "hours": 48,
+  "coin": "NEAR",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.013601374418620974,
+  "ret": -0.005251564455569398
+ },
+ {
+  "date": "2026-11-06",
+  "hours": 48,
+  "coin": "CRO",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.011882101923608978,
+  "ret": -0.0044093327875562825
+ },
+ {
+  "date": "2026-11-06",
+  "hours": 48,
+  "coin": "DOGE",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.005864382569694443,
+  "ret": -0.005580220671523858
  }
 ]
