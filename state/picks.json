@@ -499,5 +499,42 @@
     "decision_end": 1794088800000
    }
   ]
+ },
+ "2026-11-09": {
+  "12": [],
+  "24": [
+   {
+    "coin": "ONDO",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0030537796147568057,
+    "decision_end": 1794175200000
+   },
+   {
+    "coin": "LTC",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0026084056257242496,
+    "decision_end": 1794175200000
+   }
+  ],
+  "48": [
+   {
+    "coin": "NEAR",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.013264714795867575,
+    "decision_end": 1794175200000
+   },
+   {
+    "coin": "UNI",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0066333859294029724,
+    "decision_end": 1794175200000
+   },
+   {
+    "coin": "DOGE",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.005570931204535,
+    "decision_end": 1794175200000
+   }
+  ]
  }
 }
