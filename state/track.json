@@ -414,5 +414,21 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.005864382569694443,
   "ret": -0.005580220671523858
+ },
+ {
+  "date": "2026-11-08",
+  "hours": 24,
+  "coin": "AAVE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.00891708238780274,
+  "ret": -0.03812835880378307
+ },
+ {
+  "date": "2026-11-08",
+  "hours": 24,
+  "coin": "BCH",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.0017775219199336412,
+  "ret": -0.037919496652415896
  }
 ]
