@@ -536,5 +536,36 @@
     "decision_end": 1794175200000
    }
   ]
+ },
+ "2026-11-10": {
+  "12": [],
+  "24": [
+   {
+    "coin": "AVAX",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009415129371325217,
+    "decision_end": 1794261600000
+   },
+   {
+    "coin": "AAVE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009415129371325217,
+    "decision_end": 1794261600000
+   }
+  ],
+  "48": [
+   {
+    "coin": "AVAX",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015879603666486813,
+    "decision_end": 1794261600000
+   },
+   {
+    "coin": "AAVE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015879603666486813,
+    "decision_end": 1794261600000
+   }
+  ]
  }
 }
