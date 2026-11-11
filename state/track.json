@@ -462,5 +462,45 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.0026084056257242496,
   "ret": 0.02535900502272193
+ },
+ {
+  "date": "2026-11-09",
+  "hours": 48,
+  "coin": "NEAR",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.013264714795867575,
+  "ret": -0.0014326421215968797
+ },
+ {
+  "date": "2026-11-09",
+  "hours": 48,
+  "coin": "UNI",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.0066333859294029724,
+  "ret": -0.023039185299977945
+ },
+ {
+  "date": "2026-11-09",
+  "hours": 48,
+  "coin": "DOGE",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.005570931204535,
+  "ret": -0.021827942985312206
+ },
+ {
+  "date": "2026-11-10",
+  "hours": 24,
+  "coin": "AVAX",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.009415129371325217,
+  "ret": -0.03787283236994232
+ },
+ {
+  "date": "2026-11-10",
+  "hours": 24,
+  "coin": "AAVE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.009415129371325217,
+  "ret": -0.06941957462202852
  }
 ]
