@@ -502,5 +502,21 @@
   "signal_name": "MACD bullish cross",
   "projection": 0.009415129371325217,
   "ret": -0.06941957462202852
+ },
+ {
+  "date": "2026-11-10",
+  "hours": 48,
+  "coin": "AVAX",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.015879603666486813,
+  "ret": -0.02180346820809242
+ },
+ {
+  "date": "2026-11-10",
+  "hours": 48,
+  "coin": "AAVE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.015879603666486813,
+  "ret": -0.09661241163081646
  }
 ]
