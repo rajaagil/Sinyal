@@ -572,5 +572,24 @@
   "12": [],
   "24": [],
   "48": []
+ },
+ "2026-11-12": {
+  "12": [],
+  "24": [
+   {
+    "coin": "HBAR",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.008654202971043867,
+    "decision_end": 1794434400000
+   }
+  ],
+  "48": [
+   {
+    "coin": "HBAR",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015033622441447864,
+    "decision_end": 1794434400000
+   }
+  ]
  }
 }
