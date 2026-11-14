@@ -526,5 +526,13 @@
   "signal_name": "MACD bullish cross",
   "projection": 0.008654202971043867,
   "ret": -0.02814831343899493
+ },
+ {
+  "date": "2026-11-12",
+  "hours": 48,
+  "coin": "HBAR",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.015033622441447864,
+  "ret": -0.06993406593406593
  }
 ]
