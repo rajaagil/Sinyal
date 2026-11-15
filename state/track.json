@@ -534,5 +534,29 @@
   "signal_name": "MACD bullish cross",
   "projection": 0.015033622441447864,
   "ret": -0.06993406593406593
+ },
+ {
+  "date": "2026-11-13",
+  "hours": 48,
+  "coin": "NEAR",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.013006866428894514,
+  "ret": -0.13744112891371452
+ },
+ {
+  "date": "2026-11-13",
+  "hours": 48,
+  "coin": "PUMP",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.004566024081718377,
+  "ret": -0.16333178708787177
+ },
+ {
+  "date": "2026-11-15",
+  "hours": 12,
+  "coin": "HBAR",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.0028859718573153075,
+  "ret": 0.045336917562724066
  }
 ]
