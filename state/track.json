@@ -590,5 +590,13 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.001087505404434239,
   "ret": -0.027896388179496575
+ },
+ {
+  "date": "2026-11-20",
+  "hours": 24,
+  "coin": "LTC",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.0013923101576117044,
+  "ret": -0.041643555933645215
  }
 ]
