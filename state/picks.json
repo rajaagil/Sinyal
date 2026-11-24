@@ -720,5 +720,48 @@
   "12": [],
   "24": [],
   "48": []
+ },
+ "2026-11-24": {
+  "12": [],
+  "24": [
+   {
+    "coin": "XRP",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009942755670770916,
+    "decision_end": 1795471200000
+   },
+   {
+    "coin": "SOL",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009942755670770916,
+    "decision_end": 1795471200000
+   },
+   {
+    "coin": "ADA",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009942755670770916,
+    "decision_end": 1795471200000
+   }
+  ],
+  "48": [
+   {
+    "coin": "XRP",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01781581368930846,
+    "decision_end": 1795471200000
+   },
+   {
+    "coin": "SOL",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01781581368930846,
+    "decision_end": 1795471200000
+   },
+   {
+    "coin": "ADA",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01781581368930846,
+    "decision_end": 1795471200000
+   }
+  ]
  }
 }
