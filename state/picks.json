@@ -763,5 +763,43 @@
     "decision_end": 1795471200000
    }
   ]
+ },
+ "2026-11-25": {
+  "12": [
+   {
+    "coin": "HBAR",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0054289680876855075,
+    "decision_end": 1795557600000
+   }
+  ],
+  "24": [
+   {
+    "coin": "LINK",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.010913177406069789,
+    "decision_end": 1795557600000
+   }
+  ],
+  "48": [
+   {
+    "coin": "LINK",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01803470237427716,
+    "decision_end": 1795557600000
+   },
+   {
+    "coin": "CRO",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.00812616795587719,
+    "decision_end": 1795557600000
+   },
+   {
+    "coin": "PUMP",
+    "signal_name": "Turun tajam 24 jam",
+    "projection": 0.0012467299941010088,
+    "decision_end": 1795557600000
+   }
+  ]
  }
 }
