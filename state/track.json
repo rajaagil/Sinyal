@@ -654,5 +654,37 @@
   "signal_name": "Turun tajam 24 jam",
   "projection": 0.0054289680876855075,
   "ret": -0.026291485836029357
+ },
+ {
+  "date": "2026-11-24",
+  "hours": 48,
+  "coin": "XRP",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.01781581368930846,
+  "ret": -0.005385041551246524
+ },
+ {
+  "date": "2026-11-24",
+  "hours": 48,
+  "coin": "SOL",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.01781581368930846,
+  "ret": -0.023185319060197492
+ },
+ {
+  "date": "2026-11-24",
+  "hours": 48,
+  "coin": "ADA",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.01781581368930846,
+  "ret": -0.012094687436228765
+ },
+ {
+  "date": "2026-11-25",
+  "hours": 24,
+  "coin": "LINK",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.010913177406069789,
+  "ret": 0.013800811176205578
  }
 ]
