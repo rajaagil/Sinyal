@@ -801,5 +801,48 @@
     "decision_end": 1795557600000
    }
   ]
+ },
+ "2026-11-26": {
+  "12": [],
+  "24": [
+   {
+    "coin": "DOGE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009381760230003556,
+    "decision_end": 1795644000000
+   },
+   {
+    "coin": "NEAR",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009381760230003556,
+    "decision_end": 1795644000000
+   },
+   {
+    "coin": "XLM",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.009381760230003556,
+    "decision_end": 1795644000000
+   }
+  ],
+  "48": [
+   {
+    "coin": "DOGE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01711623292325463,
+    "decision_end": 1795644000000
+   },
+   {
+    "coin": "NEAR",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01711623292325463,
+    "decision_end": 1795644000000
+   },
+   {
+    "coin": "XLM",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01711623292325463,
+    "decision_end": 1795644000000
+   }
+  ]
  }
 }
