@@ -844,5 +844,48 @@
     "decision_end": 1795644000000
    }
   ]
+ },
+ "2026-11-27": {
+  "12": [],
+  "24": [
+   {
+    "coin": "ETH",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.00840503294327056,
+    "decision_end": 1795730400000
+   },
+   {
+    "coin": "LTC",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.00840503294327056,
+    "decision_end": 1795730400000
+   },
+   {
+    "coin": "SUI",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.00840503294327056,
+    "decision_end": 1795730400000
+   }
+  ],
+  "48": [
+   {
+    "coin": "ETH",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01487445524198904,
+    "decision_end": 1795730400000
+   },
+   {
+    "coin": "LTC",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01487445524198904,
+    "decision_end": 1795730400000
+   },
+   {
+    "coin": "SUI",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.01487445524198904,
+    "decision_end": 1795730400000
+   }
+  ]
  }
 }
