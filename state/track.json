@@ -686,5 +686,53 @@
   "signal_name": "MACD bullish cross",
   "projection": 0.010913177406069789,
   "ret": 0.013800811176205578
+ },
+ {
+  "date": "2026-11-25",
+  "hours": 48,
+  "coin": "LINK",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.01803470237427716,
+  "ret": 0.04455790896800371
+ },
+ {
+  "date": "2026-11-25",
+  "hours": 48,
+  "coin": "CRO",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.00812616795587719,
+  "ret": 0.009959390862944287
+ },
+ {
+  "date": "2026-11-25",
+  "hours": 48,
+  "coin": "PUMP",
+  "signal_name": "Turun tajam 24 jam",
+  "projection": 0.0012467299941010088,
+  "ret": 0.04931152902698299
+ },
+ {
+  "date": "2026-11-26",
+  "hours": 24,
+  "coin": "DOGE",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.009381760230003556,
+  "ret": 0.006010546826120459
+ },
+ {
+  "date": "2026-11-26",
+  "hours": 24,
+  "coin": "NEAR",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.009381760230003556,
+  "ret": 0.008438798464999401
+ },
+ {
+  "date": "2026-11-26",
+  "hours": 24,
+  "coin": "XLM",
+  "signal_name": "MACD bullish cross",
+  "projection": 0.009381760230003556,
+  "ret": -0.0036864466567374486
  }
 ]
