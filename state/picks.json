@@ -887,5 +887,48 @@
     "decision_end": 1795730400000
    }
   ]
+ },
+ "2026-11-28": {
+  "12": [],
+  "24": [
+   {
+    "coin": "BTC",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.008198155921150058,
+    "decision_end": 1795816800000
+   },
+   {
+    "coin": "HYPE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.008198155921150058,
+    "decision_end": 1795816800000
+   },
+   {
+    "coin": "AVAX",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.008198155921150058,
+    "decision_end": 1795816800000
+   }
+  ],
+  "48": [
+   {
+    "coin": "BTC",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015295716718567488,
+    "decision_end": 1795816800000
+   },
+   {
+    "coin": "HYPE",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015295716718567488,
+    "decision_end": 1795816800000
+   },
+   {
+    "coin": "AVAX",
+    "signal_name": "MACD bullish cross",
+    "projection": 0.015295716718567488,
+    "decision_end": 1795816800000
+   }
+  ]
  }
 }
